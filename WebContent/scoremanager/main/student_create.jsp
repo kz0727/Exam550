@@ -22,7 +22,7 @@
 		</select>
 		<div>${errors.get("ent_year")}</div>
 
-		// required= 必ず入力するよう要求
+
 		<label>学生番号</label>
 		<input type="text" name="student_no"
 			placeholder="学生番号を入力してください" maxlength="10" value="${student_no}" required />

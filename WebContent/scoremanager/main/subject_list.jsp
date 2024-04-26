@@ -11,7 +11,7 @@
 <body>
 
 	<h2>科目管理</h2>
-	<a href="StudentCreate.action">新規登録</a>
+	<a href="SubjectCreate.action">新規登録</a>
 
 
 
@@ -30,9 +30,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-<c:otherwise>
-	<div>学生情報が存在しませんでした</div>
-</c:otherwise>
+
 
 </body>
 </html>
