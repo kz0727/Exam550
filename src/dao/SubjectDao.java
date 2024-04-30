@@ -66,6 +66,26 @@ public class SubjectDao extends Dao{
 
 	private String baseSql = "select * from subject where school_cd=? ";
 
+	private List<Subject> postFilter(ResultSet rSet, School school) throws Exception {
+		List<Subject> list = new ArrayList<>();
+		try{
+			//リザルトセットを全件走査
+			while (rSet.next()) {
+				//学生インスタンスを初期化
+				Subject subject = new Subject();
+				//学生インスタンスに検索結果をセット
+				subject.setSubject_cd(rSet.getString("subject_cd"));
+				subject.setName(rSet.getString("name"));
+				subject.setSchool(school);
+				//リストに追加
+				list.add(subject);
+			}
+		} catch (SQLException | NullPointerException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	public List<Subject> filter(School school) throws Exception {
 
 		List<Subject> list = new ArrayList<>();
