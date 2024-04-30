@@ -108,9 +108,3 @@ public class StudentListAction extends Action {
 		req.getRequestDispatcher("student_list.jsp").forward(req, res);
 	}
 	}
-
-
-
-
-
-

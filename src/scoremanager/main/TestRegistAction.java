@@ -41,6 +41,7 @@ public class TestRegistAction extends Action{
 			num = req.getParameter("f4");
 
 			//DBからデータ取得 3
+
 			// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 			List<String> list = cNumDao.filter(teacher.getSchool());
 
