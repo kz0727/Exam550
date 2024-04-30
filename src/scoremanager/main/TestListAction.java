@@ -15,6 +15,7 @@ public class TestListAction extends Action{
 		//ローカル変数の宣言１
 		HttpSession session = request.getSession();//セッション
 		Teacher teacher = (Teacher)session.getAttribute("user");
+
 	}
 
 
