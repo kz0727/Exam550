@@ -23,14 +23,29 @@ public class TestDao  extends Dao{
 				PreparedStatement statement = null;
 				try{
 					//プリペアードステートステート面とにSQL文をセット
-					statement = connection.prepareStatement("select * from student where student_no=? ");
-					//プリペアードステートメントに学校コードをバインド
-					statement.setString(1, test);
-					//プリペアードステートメントを実行
+					statement = connection.prepareStatement("select * from test where student_no=? and subject_cd=? and no");
+					statement.setString(1, student.getNo());
+					statement.setString(2, subject.getCd());
+					statement.setString(3, school.getCd());
+					statement.setInt(4, no());
 					ResultSet rSet = statement.executeQuery();
-					//学校Daoを初期化
-					SchoolDao schoolDao = new SchoolDao();
 
+					if (rSet.next()) {
+						test.setStudent(student);
+						test.setSubject(subject);
+						test.setSchool(school);
+						test.setNo(no);
+						test.setPoint(rSet.getInt("point"));
+					}else{
+						test = null;
+					}
+				}catch (Exception e){
+					throw e;
+				}finally{
+					if (statement !=null){
+
+					}
+				}
 		return null;
 
 	}
