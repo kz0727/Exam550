@@ -17,14 +17,8 @@
 	<label>パスワード</label>
 	<input type="password" name="password" value="pass01">
 
-		<!--  名前 -->
-	<label>名前</label>
-	<input type="text" name="name" value="金沢　先生1">
-
-	<!-- 学校コード -->
-	<label>学校コード</label>
-	<input type="text" name="school_cd" value="knz">
-
+	<!-- パスワード表示チェックボックス -->
+	<input id="inputCheckbox" type="checkbox">
 	<input type="submit" name="login" value="ログイン"/>
 
 </form>
