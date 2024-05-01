@@ -58,6 +58,7 @@ public class TestRegistAction extends Action{
 			req.setAttribute("f3", subject);
 			req.setAttribute("f4", num);
 
+
 			// リクエストに学生リストをセット
 			req.setAttribute("test", test);
 			// リクエストにデータをセット
