@@ -105,6 +105,7 @@ public class SubjectDao extends Dao{
 			statement.setString(1, school.getSchool_cd());
 			//プリペアードステートメントを実行
 			rSet = statement.executeQuery();
+			list = postFilter(rSet, school);
 
 		} catch (Exception e) {
 			throw e;
