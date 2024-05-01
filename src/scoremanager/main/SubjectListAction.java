@@ -22,7 +22,7 @@ public class SubjectListAction extends Action {
 
 
 		List<Subject> subjects = null;// 学生リスト
-		SubjectDao sDao = new SubjectDao();//学生Dao
+		SubjectDao sDao = new SubjectDao();//科目Dao
 
 		//DBからデータ取得 3
 
