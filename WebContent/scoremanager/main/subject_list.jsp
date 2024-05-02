@@ -12,7 +12,6 @@
 
 	<h2>科目管理</h2>
 	<a href="SubjectCreate.action">新規登録</a>
-	<a href="SubjectUpdate.action">変更</a>
 
 
 
@@ -26,7 +25,7 @@
 			<tr>
 				<td>${subject.subject_cd}</td>
 				<td>${subject.name}</td>
-				<td>変更</td>
+				<td><a href="SubjectUpdate.action?subject_no=${student.subject_no}">変更</a></td>
 				<td>削除</td>
 			</tr>
 		</c:forEach>
