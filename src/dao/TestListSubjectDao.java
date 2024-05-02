@@ -1,11 +1,11 @@
 package dao;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.Subject;
-
 import bean.School;
+import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao{
@@ -42,6 +42,9 @@ public class TestListSubjectDao extends Dao{
 	 */
 	public List<TestListSubject> filter(int entYear, String classNum,Subject subject,School school) throws Exception{
 
+		List<TestListSubject> list = new ArrayList<>();
+
+		return list;
 	}
 
 }

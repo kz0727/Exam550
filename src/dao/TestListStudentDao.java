@@ -3,10 +3,12 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
+import bean.Student;
 import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao{
@@ -15,7 +17,7 @@ public class TestListStudentDao extends Dao{
 	 * baseSql:String 共通SQL文　プライベート
 	 */
 
-	private String baseSql = "";
+	private String baseSql = "select subject.name,test.subject_cd,test.NO,test.POINT,test.school_cd from testleft outer join subject on test.subject_cd = subject.Subject_cd ";
 
 
 	/**
@@ -38,7 +40,7 @@ public class TestListStudentDao extends Dao{
 				test.setSubjectName(rSet.getString("name"));
 
 			}
-		}
+
 	}
 
 	/**
@@ -49,7 +51,7 @@ public class TestListStudentDao extends Dao{
 	 * @return List<TestListStudent> 学生別成績リスト　存在しない場合は0件
 	 * @throws Exception
 	 */
-	public List<TestListStudent> filter(School school)throws Exception{
+	public List<TestListStudent> filter(Student student)throws Exception{
 		//リストを初期化
 		List<TestListStudent> list =new ArrayList<>();
 		//コネクションを確立
@@ -58,6 +60,38 @@ public class TestListStudentDao extends Dao{
 		PreparedStatement statement = null;
 		//リザルトセット
 		ResultSet rSet = null;
+		//SQL文の条件
+		String condition = "and subject.school_cd =? where test.student_no =?";
+
+		try{
+			//プリペアードステートメントにSQL文をセット
+			statement = connection.prepareStatement(baseSql+condition);
+			//プリペアードステートメントに学校コードをバインド
+			statement.setString(1, student.getStudent_no());
+			//プリペアードステートメントに学生番号をバインド
+
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステート面とをとじる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+			//コネクションを閉じる
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		return list;
 
 
 	}
