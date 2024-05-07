@@ -17,10 +17,23 @@
 
 	<!-- パスワード -->
 	<label>パスワード</label>
-	<input type="password" name="password" value="pass01" required>
+	<input type="password" id=password name="password" value="pass01" required>
 
 	<!-- パスワード表示チェックボックス -->
-	<input id="inputCheckbox" type="checkbox">
+	<input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()" />
+	<label for="showPassword">パスワードを表示する</label>
+	<script>
+		function togglePasswordVisibility() {
+			let passwordInput = document.getElementById("password");
+			let showPasswordCheckbox = document.getElementById("showPassword");
+
+			if (showPasswordCheckbox.checked) {
+				passwordInput.type = "text";
+			} else {
+				passwordInput.type = "password";
+			}
+		}
+	</script>
 	<input type="submit" name="login" value="ログイン"/>
 
 </form>
