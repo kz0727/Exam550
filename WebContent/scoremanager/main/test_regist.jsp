@@ -35,13 +35,13 @@
 <label>科目</label>
 <select name="f3">
 <option value="0">--------</option>
-<c:forEach var="num" items="${subject_set}">
-<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-<option value="${subject_cd}" <c:if test="${subject_cd==f2}">selected</c:if>>${subject_cd}</option>
+<c:forEach var="subject_cd" items="${slist}">
+
+<option value="${subject_cd.subject_cd}" <c:if test="${subject_cd.subject_cd==f3}">selected</c:if>>${subject_cd.name}</option>
 </c:forEach>
 </select>
 <label>回数</label>
-<select name="f3">
+<select name="f4">
 <option value="0">--------</option>
 <c:forEach var="num" items="${num}">
 <option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
