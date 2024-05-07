@@ -31,7 +31,7 @@ public class SubjectCreateExecuteAction extends Action{
 		name = req.getParameter("name");//科目名
 
 		//DBからデータ取得 3
-//		subject = sDao.get(subject_no);// 学生番号から学生インスタンスを取得
+		subject = sDao.get(subject_cd, teacher.getSchool());// 学生番号から学生インスタンスを取得
 //		List<String> list = cNumDao.filter(teacher.getSchool());// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 
@@ -59,7 +59,7 @@ public class SubjectCreateExecuteAction extends Action{
 //			// 学生インスタンスを初期化
 //			subject = new Subject();
 //			// インスタンスに値をセット
-//			subject.setSubject_cd(subject_no);
+//			subject.setSubject_cd(subject_cd);
 //			subject.setName(name);
 //			subject.setSchool(((Teacher)session.getAttribute("user")).getSchool());
 //			// 学生を保存
@@ -79,10 +79,10 @@ public class SubjectCreateExecuteAction extends Action{
 			req.setAttribute("errors", errors);
 			req.setAttribute("subject_cd", subject_cd);
 			req.setAttribute("name", name);
-			req.getRequestDispatcher("student_create.jsp").forward(req, res);
+			req.getRequestDispatcher("subject_create.jsp").forward(req, res);
 			return;
 		}
-		req.getRequestDispatcher("student_create_done.jsp").forward(req, res);
+		req.getRequestDispatcher("subject_create_done.jsp").forward(req, res);
 	}
 
 }

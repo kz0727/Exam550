@@ -20,8 +20,9 @@ public class SubjectDao extends Dao{
 		PreparedStatement statement = null;
 
 		try{
+			//"select * from test where subject_cd=? and subject_cd=? and school_cd=? and no=?"
 			//プリペアードステートステート面とにSQL文をセット
-			statement = connection.prepareStatement("select * from test where subject_no=? and subject_cd=? and school_cd=? and no=?");
+			statement = connection.prepareStatement("select * from subject where subject_cd=? ");
 			//プリペアードステートメントに学校コードをバインド
 			statement.setString(1, subject_cd);
 			//プリペアードステートメントを実行
