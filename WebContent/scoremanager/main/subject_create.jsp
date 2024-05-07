@@ -12,7 +12,7 @@
 <body>
 	<h2>科目情報登録</h2>
 
-	<form action = "StudentCreateExecute.action" method="post">
+	<form action = "SubjectCreateExecute.action" method="post">
 
 
 
