@@ -12,8 +12,8 @@
 	<h2>科目情報変更</h2>
 	<form action = "SubjectUpdateExecute.action" method="post">
 		<label>科目コード</label>
-		<input type="hidden" name="ent_year" value="${ent_year}">
-		${ent_year}<br>
+		<input type="hidden" name="subject_cd" value="${subject_cd}">
+		${subject_cd}<br>
 		<label>科目名</label>
 		<input type="text" name="name" placeholder="科目名を入力してください"
 			maxlength="10" value="${name}" required />

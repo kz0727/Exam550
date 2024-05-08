@@ -153,7 +153,7 @@ public class SubjectDao extends Dao{
 			} else {
 				//学生が存在した場合
 				//プリペアードステートメントにUPDATE文をセット
-				statement = connection.prepareStatement("update subject set name=?, where subject_cd=?");
+				statement = connection.prepareStatement("update subject set name=? where subject_cd=?");
 				//プリペアードステートメントに値をバインド
 				statement.setString(1,  subject.getName());
 				statement.setString(2,  subject.getSubject_cd());
