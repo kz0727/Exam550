@@ -5,16 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>得点管理システム</title>
+<h2>ログアウト</h2>
+<p>ログアウトできました</p>
+<a href="/exam550/scoremanager/Login.action">ログイン</a>
+
+
 </head>
 <body>
-
-<h2>メニュー</h2>
-
-<a href="StudentList.action">学生管理</a>
-<a href="TestRegist.action">成績登録</a>
-<a href="TestList.action">成績参照</a>
-<a href="SubjectList.action">科目管理</a>
-<a href="/exam550/scoremanager/Logout.action">ログアウト</a>
 
 </body>
 </html>
