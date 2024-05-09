@@ -13,8 +13,7 @@ import dao.ClassNumDao;
 import dao.SubjectDao;
 import tool.Action;
 
-public class SubjectUpdateExecuteAction extends Action {
-
+public class SubjectDeleteExecuteAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
@@ -60,6 +59,8 @@ public class SubjectUpdateExecuteAction extends Action {
 			req.getRequestDispatcher("subject_update.jsp").forward(req, res);
 			return;
 		}
-		req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
-	}
+
+
+		req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
+}
 }

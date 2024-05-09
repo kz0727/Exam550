@@ -26,11 +26,11 @@ public class TestListSubjectExecuteAction  extends Action{
 
 			TestListSubjectDao testSubDao = new TestListSubjectDao();//科目別成績DAO
 			SubjectDao subDao = new SubjectDao();//科目DAO
- 			int entYear;//入学年度
+ 			int entYear = 0;//入学年度
 			Subject subject = null;//科目名
+			String entYearStr="";// 入力された入学年度
 			String subject_cd = "";//科目コード
-			String classNum = "";//クラス番
-			String student_no = "";//学生番号
+			String classNum = "";//クラス番号
 			Map<String, String> errors = new HashMap<>();// エラーメッセージ
 			Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
 			LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
@@ -38,9 +38,22 @@ public class TestListSubjectExecuteAction  extends Action{
 			List<Integer> entYearSet = new ArrayList<>();//入学年度のリストを初期化
 
 			//リクエストパラメーターの取得
-			entYear = Integer.parseInt(request.getParameter("ent_year"));//入学年度
-			subject_cd =request.getParameter("subject_cd");//科目名
-			classNum = request.getParameter("class_num");//クラス番号
+			entYearStr =request.getParameter("f1");//入学年度
+			classNum=request.getParameter("f2");//クラス番号
+			subject_cd = request.getParameter("f3");//科目名
+
+			request.setAttribute("f1", entYearSet);
+			request.setAttribute("f2", classNum);
+			request.setAttribute("f3", subject_cd);
+			System.out.println(entYearStr);
+			System.out.println(classNum);
+			System.out.println(subject_cd);
+
+			//入学年度が送信されていた場合
+			if (entYearStr != null){
+				//数値に変換
+				entYear = Integer.parseInt(entYearStr);
+			}
 
 			//DBからデータ取得
 			subject = subDao.get(subject_cd, teacher.getSchool());//科目コードから科目を取得
@@ -55,35 +68,15 @@ public class TestListSubjectExecuteAction  extends Action{
 			}// 現在を起点に前後10年をリストに追加
 
 			//入学年度、科目番号、クラス番号が入力されていなかった場合
-			if (entYear == 0 && subject_cd == null && classNum == null) {// 入学年度が選択されていない場合
-				errors.put("num", "入学年度を選択してください");
-
-			}else if (entYear == 0) {//入学年度が入力されていなかった場合
-				errors.put("ent_year", "入学年度を選択してください");
-
-			}else if (subject_cd == null) {
-				errors.put("subject_cd", "科目名を選択してください");
-
-			}else if(classNum == null) {//クラス番号が入力されていなかった場合
-				errors.put("class_num", "クラス番号を選択してください");
+			if(entYear == 0|| classNum.equals("0") || subject_cd.equals("0")){
+				errors.put("select", "入学年度とクラス番号と科目を入力してください");
 			}
 
 			//エラーがあったかどうかで手順6~7の内容が分岐
 			//レスポンス値をセット 6
 			//JSPへフォワード 7
 
-			request.setAttribute("test_list_subject", list);
-
-			if(!errors.isEmpty()){
-				//リクエスト属性をセット
-				request.setAttribute("errors", errors);
-				request.setAttribute("f1", entYear);
-				request.setAttribute("f2", classNum);
-				request.setAttribute("f3",subject );
-				request.setAttribute("f4", student_no);
-				request.getRequestDispatcher("test_list.jsp").forward(request, response);
-				return;
-			}
+			request.setAttribute("tsublist", list);
 
 			request.getRequestDispatcher("test_list_student.jsp").forward(request, response);
 
