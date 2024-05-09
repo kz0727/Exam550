@@ -33,6 +33,31 @@
 				</c:forEach>
 		</table>
 		</c:when>
+		<c:when test="${tsublist.size()>0}">
+			<div>検索結果：${tsublist.size()}件</div>
+
+			<table class="table table-hover">
+				<tr>
+					<th>入学年度</th>
+					<th>クラス</th>
+					<th>学生番号</th>
+					<th>氏名</th>
+					<th class ="text-center">1回</th>
+					<th class ="text-center">2回</th>
+				</tr>
+				<c:forEach var="tsublist" items="${tsublist}">
+					<tr>
+    					<td>${tsublist.entYear}</td>
+   						<td>${tsublist.classNum}</td>
+    					<td>${tsublist.studentNo}</td>
+    					<td>${tsublist.studentName}</td>
+    					<td>${tsublist.getPoint(1)}</td>
+    					<td>${tsublist.getPoint(2)}</td>
+					</tr>
+
+				</c:forEach>
+		</table>
+		</c:when>
 		<c:otherwise>
 			<div>学生情報が存在しませんでした</div>
 		</c:otherwise>
