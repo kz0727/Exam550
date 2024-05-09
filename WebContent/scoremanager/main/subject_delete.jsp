@@ -1,4 +1,4 @@
-<%-- 学生更新JSP --%>
+<%-- 科目削除JSP --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,20 +9,16 @@
 <title>得点管理システム</title>
 </head>
 <body>
-	<h2>科目情報変更</h2>
-	<form action = "SubjectUpdateExecute.action" method="post">
+	<h2>科目情報削除</h2>
+	<form action = "SubjectDeleteExecute.action" method="post">
 		<label>科目コード</label>
 		<input type="hidden" name="subject_cd" value="${subject_cd}">
 		${subject_cd}<br>
 		<label>科　目　名</label>
-		<input type="text" name="name" placeholder="科目名を入力してください"
-			maxlength="10" value="${name}" required />
-		<div>${errors.get("name")}</div>
+		<input type="hidden" name="name" value="${name}">
+		${name}<br>
 
-
-
-
-		<input type="submit" value="変更">
+		<input type="submit" value="削除">
 
 	</form>
 
