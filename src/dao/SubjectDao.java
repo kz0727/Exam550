@@ -153,7 +153,7 @@ public class SubjectDao extends Dao{
 			} else {
 				//学生が存在した場合
 				//プリペアードステートメントにUPDATE文をセット
-				statement = connection.prepareStatement("update subject set name=?, where subject_cd=?");
+				statement = connection.prepareStatement("update subject set name=? where subject_cd=?");
 				//プリペアードステートメントに値をバインド
 				statement.setString(1,  subject.getName());
 				statement.setString(2,  subject.getSubject_cd());
@@ -191,7 +191,51 @@ public class SubjectDao extends Dao{
 	}
 
 
-//	public boolean delete(Subject subject) throws Exception {
-//
-//	}
+	public boolean delete(Subject subject) throws Exception {
+		Connection connection = getConnection();
+		//プリペアードステート面と
+		PreparedStatement statement = null;
+		//実行件数
+		int count = 0;
+
+		try{
+			//	データベースから学生を取得
+
+			//プリペアードステートメントにUPDATE文をセット
+			statement = connection.prepareStatement("update subject set name=? where subject_cd=?");
+			//プリペアードステートメントに値をバインド
+			statement.setString(1,  subject.getName());
+			statement.setString(2,  subject.getSubject_cd());
+
+			//プリペアードステートメントにを実行
+			count = statement.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステート面とをとじる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			//コネクションを閉じる
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		if (count > 0){
+			//実行件数が1件以上ある場合
+			return true;
+		} else {
+			//実行件数が0件の場合
+			return false;
+	}
+	}
 }
