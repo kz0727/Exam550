@@ -29,7 +29,6 @@ public class SubjectDeleteExecuteAction extends Action {
 		String name = req.getParameter("name");
 		String subnow = req.getParameter("subject_now");
 
-		System.out.println(subject_now);
 
 
 
@@ -46,7 +45,6 @@ public class SubjectDeleteExecuteAction extends Action {
 			// インスタンスに値をセット
 			subject.setSubject_now(subject_now);
 			sDao.delete(subject);
-			System.out.println(subject.isSubject_now());
 
 		} else {
 			errors.put("no", "学生が存在していません");
