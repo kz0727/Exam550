@@ -46,6 +46,7 @@ public class SubjectCreateExecuteAction extends Action{
 				// インスタンスに値をセット
 				subject.setSubject_cd(subject_cd);
 				subject.setName(name);
+				subject.setSubject_now(true);
 				subject.setSchool(((Teacher)session.getAttribute("user")).getSchool());
 				// 学生を保存
 				sDao.save(subject);
