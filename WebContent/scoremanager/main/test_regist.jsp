@@ -43,14 +43,42 @@
 <label>回数</label>
 <select name="f4">
 <option value="0">--------</option>
-<c:forEach var="num" items="${num}">
-<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
-</c:forEach>
+<option value="1">1</option>
+<option value="2">2</option>
+
+
 </select>
 
 		<button>検索</button>
 
 		<div>${errors.get("f1")}</div>
 </form>
+<c:choose>
+	<c:when test="${test.size()>0}">
+		<div>検索結果:${test.size()}件</div>
+		<table class="table table-hover">
+			<tr>
+			<th>入学年度</th>
+			<th>クラス</th>
+			<th>学生番号</th>
+			<th>氏名</th>
+			<th>点数</th>
+		</tr>
+				<c:forEach var="test" items="${test}">
+					<tr>
+						<td>${student.entYear}</td>
+						<td>${test.classNum}</td>
+						<td>${test.student_no}</td>
+						<td>${test.name}</td>
+						<td>${test.point}</td>
+
+					</tr>
+				</c:forEach>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<div>学生情報が存在しませんでした</div>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>
