@@ -26,6 +26,7 @@
 
 	<!-- パスワード表示チェックボックス -->
 	<div class="box">
+
 	<input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()" />
 	<label for="showPassword">パスワードを表示する</label>
 
