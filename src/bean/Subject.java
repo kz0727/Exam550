@@ -13,8 +13,14 @@ public class Subject implements Serializable {
 	//所属校 School
 	private School school;
 
+	private boolean subject_now;
+
 
     //ゲッター
+
+	public boolean isSubject_now() {
+		return subject_now;
+	}
 
 	public String getSubject_cd() {
 		return subject_cd;
@@ -28,7 +34,12 @@ public class Subject implements Serializable {
 		return school;
 	}
 
+
 //	セッター
+
+	public void setSubject_now(Boolean subject_now) {
+		this.subject_now = subject_now;
+	}
 
 	public void setSubject_cd(String subject_cd) {
 		this.subject_cd = subject_cd;

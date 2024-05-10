@@ -22,10 +22,15 @@ public class SubjectDeleteExecuteAction extends Action {
 		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
+		boolean subject_now = false;
 
 		//リクエストパラメータ―の取得 2
 		String subject_cd = req.getParameter("subject_cd");
 		String name = req.getParameter("name");
+		String subnow = req.getParameter("subject_now");
+
+		System.out.println(subject_now);
+
 
 
 		//DBからデータ取得 3
@@ -33,12 +38,15 @@ public class SubjectDeleteExecuteAction extends Action {
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で4～5が分岐
+		if (subnow != null) {
+			subject_now = false;
+		}
 		if (subject != null) {
 			// 学生が存在していた場合
 			// インスタンスに値をセット
-			subject.setName(name);
-			// 学生を保存
-			sDao.save(subject);
+			subject.setSubject_now(subject_now);
+			sDao.delete(subject);
+			System.out.println(subject.isSubject_now());
 
 		} else {
 			errors.put("no", "学生が存在していません");
