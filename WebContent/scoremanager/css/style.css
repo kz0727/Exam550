@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+/* CSSコード */
+h1 {
+
+  background-color: #e3eeff;
+  padding: 8px 15px 8px 15px;
+}
+
+h2 {
+	text-align: center;
+	background-color: #f1f1f1;
+  padding: 8px 15px 8px 15px;
+}
+a.btn-solid-gold {
+  color: #b1921b;
+  border-right: 4px solid #cea82c;
+  border-bottom: 10px solid #987c1e;
+  border-left: 4px solid #ffed8b;
+  border-radius: 0;
+  background: -webkit-gradient(linear, right top, left top, from(#ffd75b), color-stop(30%, #fff5a0), color-stop(40%, #fffabe), color-stop(50%, #ffffdb), color-stop(70%, #fff5a0), to(#fdd456));
+  background: -webkit-linear-gradient(right, #ffd75b 0%, #fff5a0 30%, #fffabe 40%, #ffffdb 50%, #fff5a0 70%, #fdd456 100%);
+  background: linear-gradient(-90deg, #ffd75b 0%, #fff5a0 30%, #fffabe 40%, #ffffdb 50%, #fff5a0 70%, #fdd456 100%);
+  text-shadow: -1px -1px 1px #ffffd9;
+}
+
+a.btn-solid-gold:hover {
+  margin-top: 3px;
+
+  color: #b1921b;
+  border-right: 4px solid #cea82c;
+  border-bottom: 7px solid #987c1e;
+  border-left: 4px solid #ffed8b;
+}
+
+table.row th,
+table.row id{
+
+  width:100%;
+
+  display:block;
+text-align: center;
+}
+
+table.row th,
+table.row pass{
+
+  width:100%;
+
+  display:block;
+
+}
+
+table.row th,
+table.row {
+
+  width:100%;
+
+  display:block;
+
+}
