@@ -49,13 +49,13 @@
 		<label>学生番号</label>
 		<input type="text" name="student_no"
 			placeholder="学生番号を入力してください" maxlength="10" required />
-		<div>${errors.get("student_no")}</div>
 		<input type="submit" value="検索">
 	</form>
 
 
 	<c:choose>
 		<c:when test="${list.size()>0}">
+		<div>氏名:${student.name}(${student.student_no})</div>
 			<div>検索結果：${list.size()}件</div>
 
 			<table class="table table-hover">
@@ -76,6 +76,12 @@
 				</c:forEach>
 		</table>
 		</c:when>
+
+		<c:when test="${list.size()== 0}">
+			<div>氏名:${student.name}(${student.student_no})</div>
+			<div>成績情報が存在しませんでした</div>
+		</c:when>
+
 		<c:when test="${tsublist.size()>0}">
 			<div>検索結果：${tsublist.size()}件</div>
 
@@ -101,10 +107,15 @@
 				</c:forEach>
 		</table>
 		</c:when>
+
+		<c:when test="${tsublist.size()== 0}">
+			<div>学生情報が存在しませんでした</div>
+		</c:when>
+
 		<c:otherwise>
 			<div>学生情報が存在しませんでした</div>
 		</c:otherwise>
-	</c:choose>
 
+	</c:choose>
 </body>
 </html>
