@@ -30,38 +30,14 @@ public class TestListStudentDao extends Dao{
 	private List<TestListStudent> postFilter(ResultSet rSet) throws Exception{
 		List<TestListStudent> list = new ArrayList<>();
 
-		/*try{
-			//リザルトセットを全件走査
-			while(rSet.next()){
-				//学生別成績インスタンスを初期化
-				TestListStudent test = new TestListStudent();
-
-				//学生別成績インスタンスに検索結果をセット
-				test.setSubjectName(rSet.getString("subject_name"));
-				test.setSubjectCd(rSet.getString("subject_cd"));
-				test.setPoint(rSet.getInt("point"));
-				test.setNum(rSet.getInt("no"));
-
-				//リストに追加
-				list.add(test);*/
-
 		try {
 		    while (rSet.next()) {
 		        TestListStudent test = new TestListStudent();
 
-		        // null チェックを追加
-		        if (rSet.getString("name") != null) {
 		            test.setSubjectName(rSet.getString("name"));
-		        }
-		        if (rSet.getString("subject_cd") != null) {
 		            test.setSubjectCd(rSet.getString("subject_cd"));
-		        }
-		        if (!rSet.wasNull()) {
 		            test.setPoint(rSet.getInt("point"));
-		        }
-		        if (!rSet.wasNull()) {
 		            test.setNum(rSet.getInt("no"));
-		        }
 
 		        list.add(test);
 		    }

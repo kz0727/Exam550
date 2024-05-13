@@ -36,28 +36,16 @@ public class TestListStudentExecuteAction extends Action {
 
 		//DBからデータ取得 3
 		student = sDao.get(student_no);// 学生番号から学生インスタンスを取得
-
+		System.out.println("1");
 
 		if(student != null){//学生が存在していた場合
+			//リクエストに学生別成績リストをセット
+			List<TestListStudent> list = tDao.filter(student,teacher.getSchool());//学生別成績リストを取得
+			request.setAttribute("list", list);
 
 		}else {
 			errors.put("no", "学生が存在しませんでした。");
 		}
-
-
-
-		List<TestListStudent> list = tDao.filter(student,teacher.getSchool());//学生別成績リストを取得
-
-		if(list == null ){//学生に成績が存在しなかった場合
-			errors.put("list", "学生に成績が存在しませんでした。");
-			System.out.println("1-1");
-
-		}
-		//リクエストに学生別成績リストをセット
-		request.setAttribute("list", list);
-
-
-
 
 		request.getRequestDispatcher("test_list_student.jsp").forward(request, response);
 

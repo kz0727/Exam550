@@ -30,17 +30,12 @@ public class TestListAction extends Action{
 		List<Integer> entYearSet = new ArrayList<>();
 
 
-
-
-
-		System.out.println("1");
 		//DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> classlist = cNumDao.filter(teacher.getSchool());
 		//ログインユーザーの学校コードをもとに科目一覧を取得
-		System.out.println("2");
 		List<Subject> subjectlist = subjectDao.filter(teacher.getSchool());
-		System.out.println("2-1");
+
 
 
 		// 10年前から1年後まで年をリストに追加
@@ -48,14 +43,7 @@ public class TestListAction extends Action{
 				entYearSet.add(i);
 		}
 
-		//レスポンス値をセット
-		System.out.println("3");
-		// リクエストに入学年度をセット
-//		request.setAttribute("f1", entYearSet);
-		// リクエストにクラス番号をセット
-		request.setAttribute("f2", classlist);
-		//リクエストに科目をセット
-		request.setAttribute("f3", subjectlist);
+
 
 		//リクエストに入学年度リストをセット
 		request.setAttribute("ent_year_set", entYearSet);
