@@ -37,18 +37,27 @@ public class TestRegistExcecuteAction extends Action{
 
 		for (Test test : list) {
 		String point =	req.getParameter("point_" + test.getStudent().getStudent_no());
-		test.setPoint(Integer.parseInt(point));
-		test.setSubject(subjectDao.get(subject_cd, teacher.getSchool()));
-		list_point.add(Integer.parseInt(point));
-		lists.add(test);
-		}
-		for(int i = 0; i > lists.size();i++){
 
-			if(list_point.get(i) > 0&& list_point.get(i) <= 100){
+		if(point != ""){
+			test.setPoint(Integer.parseInt(point));
+			test.setSubject(subjectDao.get(subject_cd, teacher.getSchool()));
+			test.setNo(Integer.parseInt(num));
+
+
+
+
+
+			if(Integer.parseInt(point) < 0&& Integer.parseInt(point) > 100){
 				errors.put("test_error", "0～100の範囲で入力してください");
 				req.setAttribute("test_error", errors);
+				req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 			}
+			lists.add(test);
+
+
+	}
 		}
+
 		tDao.save(lists);
 		req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
 	}

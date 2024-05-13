@@ -55,7 +55,7 @@
 </form>
 <c:choose>
 	<c:when test="${tests.size()>0}">
-<h2>科目：${f3}（${f4}回）</h2>
+<h2>科目：${subject.name}（${f4}回）</h2>
 <form  action="TestRegistExcecute.action">
 <table class="table table-hover">
 <tr>
@@ -73,7 +73,10 @@
 <td>${test.student.student_no}</td>
 <td>${test.student.name}</td>
 <td>
-<input type="text" name="point_${test.student.student_no}" value="${test.point}"/>
+<c:choose>
+<c:when test="${test.point=='0'}"><input type="text" name="point_${test.student.student_no }"value=""/></c:when>
+<c:otherwise><input type="text" name="point_${test.student.student_no}"value="${test.point }"/></c:otherwise>
+</c:choose>
 <div>${errors.get("test_error")}</div>
 </td>
 </tr>

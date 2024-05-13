@@ -257,16 +257,111 @@ public class TestDao  extends Dao{
 
 	}
 	public boolean delete(List<Test> list)throws Exception{
+		int count = 0;
 
+		for (Test test:list){
+			//データベースへのコネクションを確立
+			Connection connection = getConnection();
+			//値がカウントされたら失敗する
+			try{
+				boolean bool = delete(test, connection);
+				if(bool !=true){
+					count++;
+				}
+			}
+			catch(Exception e) {
+				throw e;
+			}finally{
 
+				if(connection !=null){
+					try {
+						connection.close();
+					}catch(SQLException sqle) {
+						throw sqle;
+					}
+				}
+			}
+		}
+		if (count > 0){
+			return true;
+		}
+		else{
 
-		return false;
+	return false;
+
 	}
-public boolean delete(Test test, Connection connection)throws Exception{
+private boolean delete(Test test, Connection connection)throws Exception{
+	//プリペアードステートメント
+    PreparedStatement statement = null;
+
+    //実行件数
+    int count = 0;
+
+    try{
+			//データベースから学生を取得
+			Test old = get(test.getStudent(), test.getSubject(), test.getSchool(), test.getNo());
+			if (old == null) {
+				//学生が存在しなかった場合
+				//プリペアードステートメンにINSERT文をセット
+				statement = connection.prepareStatement(
+						"insert into test (student_no, subject_cd, school_cd, no, point, class_num) values(?, ?, ?, ?, ?, ?) ");
+				//プリペアードステートメントに値をバインド
+				statement.setString(1, test.getStudent().getStudent_no());
+				statement.setString(2, test.getSubject().getSubject_cd());
+				statement.setString(3, test.getSchool().getSchool_cd());
+				statement.setInt(4, test.getNo());
+				statement.setInt(5, test.getPoint());
+				statement.setString(6, test.getClassNum());
+			} else {
+				//学生が存在した場合
+				//プリペアードステートメントにUPDATE文をセット
+				statement = connection
+						.prepareStatement("update test set point=? where student_no=? and subject_cd=? and school_cd=? and no=?");
+				//プリペアードステートメントに値をバインド
+				statement.setInt(1, test.getPoint());
+				statement.setString(2, test.getStudent().getStudent_no());
+				statement.setString(3, test.getSubject().getSubject_cd());
+				statement.setString(4, test.getSchool().getSchool_cd());
+				statement.setInt(5, test.getNo());
+			}
+        //プリペアードステートメントを実行
+        count = statement. executeUpdate ();
+
+    } catch (Exception e) {
+        throw e;
+    } finally {
+        //
+        if(statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException sqle) {
+                throw sqle;
+            }
+        }
+
+        if(connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException sqle) {
+                throw sqle;
+            }
+        }
+    }
+
+    if (count > 0) {
+        // 実行件数が1件以上ある場合
+        return true;
+        } else {
+        //実行件数が0件の場合
+        return false;
+        }
+
+
+}
 
 
 
-		return false;
+
 
 	}
 }
