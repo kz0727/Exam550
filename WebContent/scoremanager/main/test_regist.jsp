@@ -43,8 +43,8 @@
 <label>回数</label>
 <select name="f4">
 <option value="0">--------</option>
-<option value="1">1</option>
-<option value="2">2</option>
+<option value="1"<c:if test="${num==1}">selected</c:if>>1</option>
+<option value="2"<c:if test="${num==2}">selected</c:if>>2</option>
 
 
 </select>
@@ -54,31 +54,38 @@
 		<div>${errors.get("f1")}</div>
 </form>
 <c:choose>
-	<c:when test="${test.size()>0}">
-		<div>検索結果:${test.size()}件</div>
-		<table class="table table-hover">
-			<tr>
-			<th>入学年度</th>
-			<th>クラス</th>
-			<th>学生番号</th>
-			<th>氏名</th>
-			<th>点数</th>
-		</tr>
-				<c:forEach var="test" items="${test}">
-					<tr>
-						<td>${student.entYear}</td>
-						<td>${test.classNum}</td>
-						<td>${test.student_no}</td>
-						<td>${test.name}</td>
-						<td>${test.point}</td>
-
-					</tr>
-				</c:forEach>
-			</table>
-		</c:when>
-		<c:otherwise>
-			<div>学生情報が存在しませんでした</div>
-		</c:otherwise>
+	<c:when test="${tests.size()>0}">
+<h2>科目：${f3}（${f4}回）</h2>
+<form  action="TestRegistExcecute.action">
+<table class="table table-hover">
+<tr>
+<th>入学年度</th>
+<th>クラス</th>
+<th>学生番号</th>
+<th>氏名</th>
+<th>点数</th>
+</tr>
+<%-- 取得したテスト結果の表示 --%>
+<c:forEach var="test" items="${tests}">
+<tr>
+<td>${test.student.entYear}</td>
+<td>${test.classNum}</td>
+<td>${test.student.student_no}</td>
+<td>${test.student.name}</td>
+<td>
+<input type="text" name="point_${test.student.student_no}" value="${test.point}"/>
+<div>${errors.get("test_error")}</div>
+</td>
+</tr>
+</c:forEach>
+</table>
+<input type="hidden" name="f1" value="${f1}"/>
+<input type="hidden" name="f2" value="${f2}"/>
+<input type="hidden" name="f3" value="${f3}"/>
+<input type="hidden" name="f4" value="${f4}"/>
+<input type="submit"  value="登録して終了">
+</form>
+</c:when>
 	</c:choose>
 </body>
 </html>

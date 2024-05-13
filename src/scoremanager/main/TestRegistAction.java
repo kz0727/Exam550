@@ -66,7 +66,17 @@ public class TestRegistAction extends Action{
 				entYearSet.add(i);
 
 			}
-			test = tDao.filter(entYear, classNum, subject, numi, teacher.getSchool());
+			if (entYearStr !=null){
+				entYear = Integer.parseInt(entYearStr);
+			}
+
+			System.out.println(entYearStr + classNum + subject_cd + num);
+			if(entYearStr != null&& classNum != null&& subject_cd !=null && num != null) {
+				test = tDao.filter(entYear, classNum, subject, numi, teacher.getSchool());
+				System.out.println(test);
+				req.setAttribute("tests", test);
+			}
+
 
 
 			req.setAttribute("f1", entYear);
@@ -76,7 +86,7 @@ public class TestRegistAction extends Action{
 			req.setAttribute("f4", num);
 
 			// リクエストに学生リストをセット
-			req.setAttribute("test", test);
+
 			// リクエストにデータをセット
 			req.setAttribute("class_num_set", list);
 			req.setAttribute("ent_year_set", entYearSet);
