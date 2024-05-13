@@ -36,7 +36,6 @@ public class TestListStudentExecuteAction extends Action {
 
 		//DBからデータ取得 3
 		student = sDao.get(student_no);// 学生番号から学生インスタンスを取得
-		System.out.println("1");
 
 		if(student != null){//学生が存在していた場合
 			//リクエストに学生別成績リストをセット
