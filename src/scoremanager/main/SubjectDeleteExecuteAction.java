@@ -54,7 +54,6 @@ public class SubjectDeleteExecuteAction extends Action {
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//レスポンス値をセット 6
-		//JSPへフォワード 7
 
 
 		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
@@ -66,7 +65,7 @@ public class SubjectDeleteExecuteAction extends Action {
 			return;
 		}
 
-
+		//JSPへフォワード 7
 		req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
 }
 }
