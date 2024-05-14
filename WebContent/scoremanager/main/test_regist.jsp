@@ -14,6 +14,7 @@
 
 
 	<form method="get">
+	<%--入学年度の入力 --%>>
 <label>入学年度 </label>
 <select name="f1">
 <option value="0">--------</option>
@@ -32,6 +33,7 @@
 <option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
 </c:forEach>
 </select>
+<%--科目を入力　--%>>
 <label>科目</label>
 <select name="f3">
 <option value="0">--------</option>
@@ -40,6 +42,7 @@
 <option value="${subject_cd.subject_cd}" <c:if test="${subject_cd.subject_cd==f3}">selected</c:if>>${subject_cd.name}</option>
 </c:forEach>
 </select>
+<%--回数の入力 --%>>
 <label>回数</label>
 <select name="f4">
 <option value="0">--------</option>

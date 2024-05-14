@@ -188,7 +188,7 @@ public class TestDao  extends Dao{
 		return false;
 			}
 	}
-	public boolean save(Test test, Connection connection)throws Exception{
+	private boolean save(Test test, Connection connection)throws Exception{
 		//プリペアードステートメント
 	    PreparedStatement statement = null;
 
