@@ -21,7 +21,7 @@ public class SubjectCreateExecuteAction extends Action{
 		SubjectDao sDao = new SubjectDao();//科目Dao
 		String subject_cd = "";//科目コード
 		String name = "";//科目名
-		Subject subject = null;//学生
+		Subject subject = null;//科目
 		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
@@ -31,7 +31,7 @@ public class SubjectCreateExecuteAction extends Action{
 		name = req.getParameter("name");//科目名
 
 		//DBからデータ取得 3
-		subject = sDao.get(subject_cd, teacher.getSchool());// 学生番号から学生インスタンスを取得
+		subject = sDao.get(subject_cd, teacher.getSchool());// 科目コードから学生インスタンスを取得
 //		List<String> list = cNumDao.filter(teacher.getSchool());// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 
@@ -40,34 +40,23 @@ public class SubjectCreateExecuteAction extends Action{
 		//条件で手順4~5の内容が分岐
 		// 現在を起点に前後10年をリストに追加
 
-			if (subject == null) {// 学生が未登録だった場合
-				// 学生インスタンスを初期化
+			if (subject == null) {// 科目が未登録だった場合
+				// 科目インスタンスを初期化
 				subject = new Subject();
 				// インスタンスに値をセット
 				subject.setSubject_cd(subject_cd);
 				subject.setName(name);
 				subject.setSubject_now(true);
 				subject.setSchool(((Teacher)session.getAttribute("user")).getSchool());
-				// 学生を保存
+				// 科目を保存
 				sDao.save(subject);
-			} else {//入力された学番がDBに保存されていた場合
-				errors.put("no", "学生番号が重複しています");
+			} else {//入力された科目コードがDBに保存されていた場合
+				errors.put("subject_cd", "科目コードが重複しています");
 			}
 
 
 
-//		if (subject == null) {// 科目が未登録だった場合
-//			// 学生インスタンスを初期化
-//			subject = new Subject();
-//			// インスタンスに値をセット
-//			subject.setSubject_cd(subject_cd);
-//			subject.setName(name);
-//			subject.setSchool(((Teacher)session.getAttribute("user")).getSchool());
-//			// 学生を保存
-//			sDao.save(subject);
-//		} else {//入力された学番がDBに保存されていた場合
-//			errors.put("no", "学生番号が重複しています");
-//		}
+
 
 
 
