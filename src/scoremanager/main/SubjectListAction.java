@@ -21,7 +21,7 @@ public class SubjectListAction extends Action {
 		Teacher teacher = (Teacher)session.getAttribute("user");//ログインユーザー
 
 
-		List<Subject> subjects = null;// 学生リスト
+		List<Subject> subjects = null;// 科目リスト
 		SubjectDao sDao = new SubjectDao();//科目Dao
 
 		//DBからデータ取得 3
@@ -31,7 +31,7 @@ public class SubjectListAction extends Action {
 		//DBへデータ保存 5
 		//なし
 
-		// リクエストに学生リストをセット
+		// リクエストに科目リストをセット
 		req.setAttribute("subjects", subjects);
 
 		//JSPへフォワード 7

@@ -22,10 +22,14 @@ public class SubjectDeleteExecuteAction extends Action {
 		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
+		boolean subject_now = false;
 
 		//リクエストパラメータ―の取得 2
 		String subject_cd = req.getParameter("subject_cd");
 		String name = req.getParameter("name");
+		String subnow = req.getParameter("subject_now");
+
+
 
 
 		//DBからデータ取得 3
@@ -33,12 +37,14 @@ public class SubjectDeleteExecuteAction extends Action {
 		//ビジネスロジック 4
 		//DBへデータ保存 5
 		//条件で4～5が分岐
+		if (subnow != null) {
+			subject_now = false;
+		}
 		if (subject != null) {
 			// 学生が存在していた場合
 			// インスタンスに値をセット
-			subject.setName(name);
-			// 学生を保存
-			sDao.save(subject);
+			subject.setSubject_now(subject_now);
+			sDao.delete(subject);
 
 		} else {
 			errors.put("no", "学生が存在していません");
@@ -48,7 +54,6 @@ public class SubjectDeleteExecuteAction extends Action {
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//レスポンス値をセット 6
-		//JSPへフォワード 7
 
 
 		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
@@ -60,7 +65,7 @@ public class SubjectDeleteExecuteAction extends Action {
 			return;
 		}
 
-
+		//JSPへフォワード 7
 		req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
 }
 }
