@@ -87,7 +87,7 @@ public class TestDao  extends Dao{
 					test.setStudent(studentDao.get(rSet.getString("student_no")));
 					test.setSubject(subjectDao.get(rSet.getString("subject_cd"), school));
 					test.setPoint(rSet.getInt("point"));
-					test.setNo(rSet.getInt("test.no"));
+					test.setNo(rSet.getInt("no"));
 					test.setClassNum(rSet.getString("class_num"));
 					test.setSchool(school);
 					list.add(test);
@@ -105,15 +105,13 @@ public class TestDao  extends Dao{
 		PreparedStatement statement = null;
 		//リザルトセット
 		ResultSet rSet = null;
-		//SQL文の条件
-		String condition = " where ent_year =? and student.class_num=? and student.school_cd=?";
+
 		//SQL文のソート
-		String order =" order by no asc";
+
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from student.student_no"
-					+ condition + order);
+			statement = connection.prepareStatement("select distinct student.ENT_YEAR ,test.CLASS_NUM ,test.STUDENT_NO ,student.NAME ,test.POINT,test.SUBJECT_CD,test.no from test join STUDENT  on　test.STUDENT_NO = student.STUDENT_NO where student.ENT_YEAR =? and test.CLASS_NUM = ? and test.SUBJECT_CD =? and test.no = ?;");
 			//プリペアードステートメントに入学年度をバインド
 			statement. setInt (1, entYear) ;
 			//プリペアードステートメントにクラス番号をバインド
@@ -121,7 +119,7 @@ public class TestDao  extends Dao{
 			//プリペアードステートメントに科目コードをバインド
 			statement. setString(3, subject.getSubject_cd());
 			statement. setInt(4, num);
-			statement. setString(5, school. getSchool_cd ());
+
 
 
 			//プライベートステートメントを実行

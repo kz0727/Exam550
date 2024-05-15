@@ -26,9 +26,9 @@ public class SubjectDeleteAction extends Action {
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		//リクエストパラメータ―の取得 2
-		String subject_cd = req.getParameter("subject_cd");//学番
+		String subject_cd = req.getParameter("subject_cd");//科目コード
 		//DBからデータ取得 3
-		Subject subject = sDao.get(subject_cd,teacher.getSchool());//学生番号から学生インスタンスを取得
+		Subject subject = sDao.get(subject_cd,teacher.getSchool());//科目コードから科目インスタンスを取得
 		List<String> list = cNumDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
 
@@ -36,15 +36,15 @@ public class SubjectDeleteAction extends Action {
 		//DBへデータ保存 5
 		//レスポンス値をセット 6
 		//条件で手順4~6の内容が分岐
-		if (subject != null) {// 学生が存在していた場合
+		if (subject != null) {// 科目が存在していた場合
 			req.setAttribute("subject_cd", subject.getSubject_cd());
 			req.setAttribute("name", subject.getName());
-		} else {// 学生が存在していなかった場合
+		} else {// 科目が存在していなかった場合
 			errors.put("subject_cd", "科目が存在していません");
 			req.setAttribute("errors", errors);
 		}
 
-
+		//JSPへフォワード
 		req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
 }
 }

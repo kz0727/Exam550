@@ -16,14 +16,14 @@ public class SubjectDao extends Dao{
 		Subject subject = new Subject();
 		//データベースへのコネクションを確立
 		Connection connection = getConnection();
-		//プリペアードステート面と
+		//プリペアードステートメンと
 		PreparedStatement statement = null;
 
 		try{
 			//"select * from test where subject_cd=? and subject_cd=? and school_cd=? and no=?"
-			//プリペアードステートステート面とにSQL文をセット
+			//プリペアードステートステートメンとにSQL文をセット
 			statement = connection.prepareStatement("select * from subject where subject_cd=? ");
-			//プリペアードステートメントに学校コードをバインド
+			//プリペアードステートメントに科目コードをバインド
 			statement.setString(1, subject_cd);
 			//プリペアードステートメントを実行
 			ResultSet rSet = statement.executeQuery();
@@ -32,11 +32,12 @@ public class SubjectDao extends Dao{
 
 			if (rSet.next()) {
 				//リザルトセットが存在する場合
-				//学生インスタンスに検索結果をセット
+				//科目インスタンスに検索結果をセット
 				subject.setSubject_cd(rSet.getString("subject_cd"));
 				subject.setName(rSet.getString("name"));
 				//学校フィールドには学校コードで検索した学校インスタンスをセット
 				subject.setSchool(schoolDao.get(rSet.getString("school_cd")));
+				subject.setSubject_now(rSet.getBoolean("subject_now"));
 			} else {
 				//リザルトセットが存在しない場合
 				//学生ｎインスタンスにnullをセット
@@ -45,7 +46,7 @@ public class SubjectDao extends Dao{
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			//プリペアードステート面とをとじる
+			//プリペアードステートメンとをとじる
 			if (statement != null) {
 				try {
 					statement.close();
@@ -72,12 +73,13 @@ public class SubjectDao extends Dao{
 		try{
 			//リザルトセットを全件走査
 			while (rSet.next()) {
-				//学生インスタンスを初期化
+				//科目インスタンスを初期化
 				Subject subject = new Subject();
-				//学生インスタンスに検索結果をセット
+				//科目インスタンスに検索結果をセット
 				subject.setSubject_cd(rSet.getString("subject_cd"));
 				subject.setName(rSet.getString("name"));
 				subject.setSchool(school);
+				subject.setSubject_now(rSet.getBoolean("subject_now"));
 				//リストに追加
 				list.add(subject);
 			}
@@ -97,11 +99,12 @@ public class SubjectDao extends Dao{
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文のソート
-		String order = "order by subject_cd asc";
+		String condition_subject_now = "and subject_now=true";
+		String order = " order by subject_cd asc";
 
 
 		try{
-			statement = connection.prepareStatement(baseSql + order);
+			statement = connection.prepareStatement(baseSql + condition_subject_now + order);
 			//プリペアードステートメントに学校コードをバインド
 			statement.setString(1, school.getSchool_cd());
 			//プリペアードステートメントを実行
@@ -111,7 +114,7 @@ public class SubjectDao extends Dao{
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			//プリペアードステート面とをとじる
+			//プリペアードステートメンとをとじる
 			if (statement != null) {
 				try {
 					statement.close();
@@ -134,24 +137,25 @@ public class SubjectDao extends Dao{
 	public boolean save(Subject subject) throws Exception {
 
 		Connection connection = getConnection();
-		//プリペアードステート面と
+		//プリペアードステートメンと
 		PreparedStatement statement = null;
 		//実行件数
 		int count = 0;
 
 		try{
-			//	データベースから学生を取得
+			//	データベースから科目を取得
 			Subject old = get(subject.getSubject_cd(), subject.getSchool());
 			if (old == null) {
 				//学生が存在しなかった場合
 				//プリペアードステートメントにINSERT文をセット
-				statement = connection.prepareStatement("insert into subject (subject_cd, name, school_cd) values(?, ?, ?)");
+				statement = connection.prepareStatement("insert into subject (subject_cd, name, school_cd, subject_now) values(?, ?, ?, ?)");
 				//プリペアードステートメントに値をバインド
 				statement.setString(1,  subject.getSubject_cd());
 				statement.setString(2,  subject.getName());
 				statement.setString(3,  subject.getSchool().getSchool_cd());
+				statement.setBoolean(4, subject.isSubject_now());
 			} else {
-				//学生が存在した場合
+				//科目が存在した場合
 				//プリペアードステートメントにUPDATE文をセット
 				statement = connection.prepareStatement("update subject set name=? where subject_cd=?");
 				//プリペアードステートメントに値をバインド
@@ -164,7 +168,7 @@ public class SubjectDao extends Dao{
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			//プリペアードステート面とをとじる
+			//プリペアードステートメンとをとじる
 			if (statement != null) {
 				try {
 					statement.close();
@@ -193,18 +197,18 @@ public class SubjectDao extends Dao{
 
 	public boolean delete(Subject subject) throws Exception {
 		Connection connection = getConnection();
-		//プリペアードステート面と
+		//プリペアードステートメンと
 		PreparedStatement statement = null;
 		//実行件数
 		int count = 0;
 
 		try{
-			//	データベースから学生を取得
+			//	データベースから科目を取得
 
 			//プリペアードステートメントにUPDATE文をセット
-			statement = connection.prepareStatement("update subject set name=? where subject_cd=?");
+			statement = connection.prepareStatement("update subject set subject_now=? where subject_cd=? ");
 			//プリペアードステートメントに値をバインド
-			statement.setString(1,  subject.getName());
+			statement.setBoolean(1,  subject.isSubject_now());
 			statement.setString(2,  subject.getSubject_cd());
 
 			//プリペアードステートメントにを実行
@@ -213,7 +217,7 @@ public class SubjectDao extends Dao{
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			//プリペアードステート面とをとじる
+			//プリペアードステートメンとをとじる
 			if (statement != null) {
 				try {
 					statement.close();

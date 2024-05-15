@@ -47,7 +47,6 @@
 		<label>学生番号</label>
 		<input type="text" name="student_no"
 			placeholder="学生番号を入力してください" maxlength="10" required />
-		<div>${errors.get("student_no")}</div>
 		<input type="submit" value="検索">
 	</form>
 
