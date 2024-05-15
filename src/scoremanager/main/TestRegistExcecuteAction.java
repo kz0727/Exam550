@@ -32,6 +32,8 @@ public class TestRegistExcecuteAction extends Action{
 		String classNum = req.getParameter("f2");//クラス番号
 		String subject_cd = req.getParameter("f3");//科目コード
 		String num = req.getParameter("f4");//回数
+		String del = req.getParameter("delete");
+		System.out.print(del);
 		System.out.println(entYearStr + classNum + subject_cd + num);
 		List<Test> list = tDao.filter(Integer.parseInt(entYearStr), classNum, subjectDao.get(subject_cd, teacher.getSchool()),Integer.parseInt(num), teacher.getSchool());
 

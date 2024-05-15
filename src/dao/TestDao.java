@@ -106,15 +106,13 @@ public class TestDao  extends Dao{
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String condition = " where ent_year =? and student.class_num=? and"
-				+ " (subject_cd =? or subject_cd is null) and"
-			+	" (test.no =? or test.no is null) and student.School_cd =?";
+		String condition = " where ent_year =? and student.class_num=? and student.school_cd=?";
 		//SQL文のソート
 		String order =" order by no asc";
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from student left outer join test on student.student_no = test.student_no"
+			statement = connection.prepareStatement("select * from student.student_no"
 					+ condition + order);
 			//プリペアードステートメントに入学年度をバインド
 			statement. setInt (1, entYear) ;
@@ -288,80 +286,60 @@ public class TestDao  extends Dao{
 		else{
 
 	return false;
-
+		}
 	}
 private boolean delete(Test test, Connection connection)throws Exception{
-	//プリペアードステートメント
-    PreparedStatement statement = null;
+	 PreparedStatement statement = null;
 
-    //実行件数
-    int count = 0;
+	    //実行件数
+	    int count = 0;
 
-    try{
-			//データベースから学生を取得
-			Test old = get(test.getStudent(), test.getSubject(), test.getSchool(), test.getNo());
-			if (old == null) {
-				//学生が存在しなかった場合
-				//プリペアードステートメンにINSERT文をセット
-				statement = connection.prepareStatement(
-						"insert into test (student_no, subject_cd, school_cd, no, point, class_num) values(?, ?, ?, ?, ?, ?) ");
-				//プリペアードステートメントに値をバインド
-				statement.setString(1, test.getStudent().getStudent_no());
-				statement.setString(2, test.getSubject().getSubject_cd());
-				statement.setString(3, test.getSchool().getSchool_cd());
-				statement.setInt(4, test.getNo());
-				statement.setInt(5, test.getPoint());
-				statement.setString(6, test.getClassNum());
-			} else {
-				//学生が存在した場合
-				//プリペアードステートメントにUPDATE文をセット
-				statement = connection
-						.prepareStatement("update test set point=? where student_no=? and subject_cd=? and school_cd=? and no=?");
-				//プリペアードステートメントに値をバインド
-				statement.setInt(1, test.getPoint());
-				statement.setString(2, test.getStudent().getStudent_no());
-				statement.setString(3, test.getSubject().getSubject_cd());
-				statement.setString(4, test.getSchool().getSchool_cd());
-				statement.setInt(5, test.getNo());
-			}
-        //プリペアードステートメントを実行
-        count = statement. executeUpdate ();
+	    try{
+				//データベースから学生を取得
+				Test old = get(test.getStudent(), test.getSubject(), test.getSchool(), test.getNo());
+				if (old == null) {
+					//学生が存在しなかった場合
+					//プリペアードステートメントにINSERT文をセット
+					statement = connection.prepareStatement(
+							"delete from test where student_no = ? and no = ? and subject_cd = ? and school_cd = ?");
+					//プリペアードステートメントに値をバインド
+					statement.setString(1, test.getStudent().getStudent_no());
+					statement.setString(2, test.getSubject().getSubject_cd());
+					statement.setString(3, test.getSchool().getSchool_cd());
+					statement.setInt(4, test.getNo());
 
-    } catch (Exception e) {
-        throw e;
-    } finally {
-        //
-        if(statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException sqle) {
-                throw sqle;
-            }
-        }
+				}
+	        //プリペアードステートメントを実行
+	        count = statement. executeUpdate ();
 
-        if(connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException sqle) {
-                throw sqle;
-            }
-        }
-    }
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        //
+	        if(statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
 
-    if (count > 0) {
-        // 実行件数が1件以上ある場合
-        return true;
-        } else {
-        //実行件数が0件の場合
-        return false;
-        }
+	        if(connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
 
+	    if (count > 0) {
+	        // 実行件数が1件以上ある場合
+	        return true;
+	        } else {
+	        //実行件数が0件の場合
+	        return false;
+	        }
 
 }
-
-
-
-
-
-	}
 }

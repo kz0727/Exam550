@@ -83,6 +83,7 @@
 <div>${errors.get("test_error")}</div>
 </td>
 </tr>
+
 </c:forEach>
 </table>
 <input type="hidden" name="f1" value="${f1}"/>
