@@ -1,8 +1,8 @@
 package bean;
 
-import javax.security.auth.Subject;
+import java.io.Serializable;
 
-public class Test {
+public class Test implements Serializable{
 	//生徒
 private Student student;
 //classNumを定義
