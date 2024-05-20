@@ -15,13 +15,13 @@
 	<!--  ID -->
 	<div class="id">
 	<label>ID</label>
-	<input type="text" name="id"  maxlength="20" value="teacher01" required>
+	<input type="text" name="id"  maxlength="20" placeholder="半角で入力してください"  required>
 	</div>
 
 	<!-- パスワード -->
 	<div class="pass">
 	<label>パスワード</label>
-	<input type="password" id=password name="password" value="pass01" required>
+	<input type="password" id=password name="password" placeholder="20文字以内で入力してください" required>
 	</div>
 
 	<!-- パスワード表示チェックボックス -->
