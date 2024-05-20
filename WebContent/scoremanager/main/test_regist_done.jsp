@@ -11,7 +11,9 @@
 
 <h2>成績管理</h2>
 <p>登録が完了しました</p>
+<%--戻るリンク--%>
 <a href="TestRegist.action">戻る</a>
+<%--成績参照リンク--%>
 <a href="TestList.action">成績参照</a>
 </body>
 </html>

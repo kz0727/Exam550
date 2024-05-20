@@ -95,6 +95,7 @@ public class TestDao  extends Dao{
 			} catch (SQLException | NullPointerException e) {
 				e.printStackTrace();
 			}
+			//リストを返す
 			return list;
 		}
 	public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school)throws Exception{

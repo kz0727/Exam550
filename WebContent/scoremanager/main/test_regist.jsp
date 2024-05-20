@@ -51,7 +51,7 @@
 
 
 </select>
-
+<%--検索ボタンを設置 --%>>
 		<button>検索</button>
 
 		<div>${errors.get("f1")}</div>
