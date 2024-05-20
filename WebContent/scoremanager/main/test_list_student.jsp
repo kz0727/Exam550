@@ -7,7 +7,7 @@
 <c:param name="content">
 <h2>成績一覧(${titlesub}${titlestu})</h2>
 
-<!-- 科目別成績検索 -->
+<%-- 科目別成績検索 --%>
 <div class="border border-3 rounded" style=" height: 200px;">
 
 	<form action="TestListSubjectExecute.action" method="post">
@@ -50,10 +50,10 @@
 	</div>
 	</form>
 
-<!-- 検索のセンターライン -->
+<%-- 検索のセンターライン --%>
 <hr class= "ms-4" style="width: 20cm;">
 
-<!-- 学生別成績検索 -->
+<%-- 学生別成績検索 --%>
 <div class="mt-4 mb-3 ms-3" >
 	<form action = "TestListStudentExecute.action" method="post">
 		<label>学生番号</label>
@@ -69,7 +69,7 @@
 
 	<c:choose>
 
-		<!-- 科目別成績一覧があった場合表示する -->
+		<%-- 科目別成績一覧があった場合表示する --%>
 		<c:when test="${list.size()>0}">
 		<div>氏名:${student.name}(${student.student_no})</div>
 			<div>検索結果：${list.size()}件</div>
@@ -93,7 +93,7 @@
 		</table>
 		</c:when>
 
-		<!-- 学生別成績一覧が存在した場合表示 -->
+		<%-- 学生別成績一覧が存在した場合表示 --%>
 		<c:when test="${list.size()== 0}">
 			<div>氏名:${student.name}(${student.student_no})</div>
 			<div>成績情報が存在しませんでした</div>
@@ -125,7 +125,7 @@
 		</table>
 		</c:when>
 
-		<!-- エラーが存在した場合表示 -->
+		<%-- エラーが存在した場合表示 --%>
 		<c:when test="${tsublist.size()== 0}">
 			<div>学生情報が存在しませんでした</div>
 		</c:when>

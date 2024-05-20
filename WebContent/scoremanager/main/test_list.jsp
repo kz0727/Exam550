@@ -7,7 +7,7 @@
 <c:param name="content">
 <h2>成績参照</h2>
 
-<!-- 科目別成績検索 -->
+<%-- 科目別成績検索 --%>
 <div class="border border-3 rounded" style=" height: 220px;">
 
 	<form action="TestListSubjectExecute.action" method="post">
@@ -49,13 +49,13 @@
 
 	</div>
 	</form>
-	<!-- エラーがあった場合表示 -->
+	<%-- エラーがあった場合表示 --%>
 	<div class="ms-3">${errors.get("select")}</div>
 
-<!-- 検索のセンターライン -->
+<%-- 検索のセンターライン --%>
 <hr class= "ms-4" style="width: 20cm;">
 
-<!-- 学生別成績検索 -->
+<%-- 学生別成績検索 --%>
 <div class="mt-2 mb-3 ms-3" >
 	<form action = "TestListStudentExecute.action" method="post">
 	<div class=" mb-1" >学生情報</div>
