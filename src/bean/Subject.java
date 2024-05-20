@@ -13,6 +13,7 @@ public class Subject implements Serializable {
 	//所属校 School
 	private School school;
 
+	//科目管理　boolean true = 科目あり
 	private boolean subject_now;
 
 

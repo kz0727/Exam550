@@ -29,7 +29,6 @@ public class SubjectDeleteExecuteAction extends Action {
 		String name = req.getParameter("name");
 		String subnow = req.getParameter("subject_now");
 
-		System.out.println(subject_now);
 
 
 
@@ -46,7 +45,6 @@ public class SubjectDeleteExecuteAction extends Action {
 			// インスタンスに値をセット
 			subject.setSubject_now(subject_now);
 			sDao.delete(subject);
-			System.out.println(subject.isSubject_now());
 
 		} else {
 			errors.put("no", "学生が存在していません");
@@ -56,7 +54,6 @@ public class SubjectDeleteExecuteAction extends Action {
 
 		//エラーがあったかどうかで手順6~7の内容が分岐
 		//レスポンス値をセット 6
-		//JSPへフォワード 7
 
 
 		if(!errors.isEmpty()){//エラーがあった場合、更新画面へ戻る
@@ -68,7 +65,7 @@ public class SubjectDeleteExecuteAction extends Action {
 			return;
 		}
 
-
+		//JSPへフォワード 7
 		req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
 }
 }
