@@ -70,10 +70,14 @@ public class TestListSubjectDao extends Dao{
 
 		        //学生情報を更新
 		        student = rSet.getString("student_no");
+
 		    	}
-		    	//リストに追加
-		    	list.add(test);
 		    }
+
+		    if (!(student.equals(""))) {
+				//リストに追加
+    			list.add(test);
+			}
 
 		} catch (SQLException e) {
 		    e.printStackTrace();

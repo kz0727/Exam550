@@ -31,18 +31,18 @@ public class TestListStudentExecuteAction extends Action {
 		StudentDao sDao = new StudentDao();//学生Dao
 		String student_no = "";//学生番号
 		Student student = null;//学生
+		String titlestu = "学生";//タイトル
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		SubjectDao subjectDao = new SubjectDao();//科目DAOを初期化
-		List<Integer> entYearSet = new ArrayList<>();
+		List<Integer> entYearSet = new ArrayList<>();//入学年度
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
 
 		//リクエストパラメータの取得
 		student_no = request.getParameter("student_no");//学生番号
-
-
+		request.setAttribute("f4", student_no);
 
 		//DBからデータ取得 3
 		student = sDao.get(student_no);// 学生番号から学生インスタンスを取得
@@ -58,13 +58,14 @@ public class TestListStudentExecuteAction extends Action {
 		}
 
 		if(student != null){//学生が存在していた場合
-			//リクエストに学生別成績リストをセット
 			List<TestListStudent> list = tDao.filter(student,teacher.getSchool());//学生別成績リストを取得
+			//リクエストに学生別成績リストと学生情報をセット
 			request.setAttribute("list", list);
 			request.setAttribute("student", student);
 
-
+		//学生が存在しなかった場合
 		}else {
+			//エラーにコメントを格納
 			errors.put("no", "学生が存在しませんでした。");
 		}
 
@@ -74,7 +75,11 @@ public class TestListStudentExecuteAction extends Action {
 		request.setAttribute("class_list", classlist);
 		//リクエストに科目リストをセット
 		request.setAttribute("subject_list", subjectlist);
+		//リクエストにタイトル情報をセット
+		request.setAttribute("titlestu", titlestu);
 
+
+		//成績一覧にフォワード
 		request.getRequestDispatcher("test_list_student.jsp").forward(request, response);
 
 	}
